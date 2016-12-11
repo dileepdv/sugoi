@@ -8,11 +8,11 @@ class Users extends CI_Controller
     {
         parent::__construct();
         $this->load->model('user');
-//        if ($this->session->has_userdata('auth')) {
-//            redirect('games/index');
-//        }
     }
 
+    /**
+     * REDIRECTING TO LOGIN PAGE
+     */
     public function index()
     {
         $this->get_login();

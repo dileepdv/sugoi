@@ -8,6 +8,10 @@ class Game extends CI_Model
         parent::__construct();
     }
 
+    /**
+     * STORE NEW GAME
+     * @return mixed
+     */
     public function store()
     {
         $user = $this->session->userdata('auth');
@@ -19,6 +23,11 @@ class Game extends CI_Model
         return $this->db->insert('games', $new_game);
     }
 
+    /**
+     * GET ALL GAMES PLAYED BY USER
+     * @param $user_id
+     * @return mixed
+     */
     public function getGameByUserId($user_id)
     {
         $query = $this->db->where('user_id', $user_id)->get('games');

@@ -12,6 +12,9 @@ class Games extends CI_Controller
         }
     }
 
+    /**
+     * USERS GAME PAGE
+     */
     public function index()
     {
         $data['errors'] = $this->session->flashdata('errors');
@@ -29,6 +32,10 @@ class Games extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
+    /**
+     * GAME LEVEL
+     * @param $level
+     */
     public function level($level)
     {
         $blocks = [];
@@ -60,6 +67,13 @@ class Games extends CI_Controller
         $this->load->view('layouts/footer');
     }
 
+    /**
+     * GENERATE RANDOM BLOCKS
+     *
+     * @param $int
+     * @param $shapes
+     * @return array
+     */
     private function getRandomBlocks($int, $shapes)
     {
         $tmp = [];
@@ -72,10 +86,13 @@ class Games extends CI_Controller
         return $tmp;
     }
 
+    /**
+     * SAVE GAME DETAILS AFTER FINISH
+     */
     public function save()
     {
         $this->load->library('form_validation');
-        //
+        //RULES
         $this->form_validation->set_rules('level', 'level', 'trim|required');
         $this->form_validation->set_rules('total', 'total', 'trim|required');
         $this->form_validation->set_rules('score', 'score', 'trim|required');
@@ -85,11 +102,17 @@ class Games extends CI_Controller
             $this->index($messages);
             return;
         }
-        $new_game = $this->game->store();
+        //STORE
+        $this->game->store();
         $this->session->set_flashdata('success', 'Game has been successfully saved.');
         redirect('games/');
     }
 
+    /**
+     * FORMAT SCORES BY LEVELS
+     * @param $scores
+     * @return array
+     */
     private function formatScores($scores)
     {
         $formatted_scores = [];
